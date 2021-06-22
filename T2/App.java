@@ -1,11 +1,28 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
 public class App{
     public static void main(String[] args) throws Exception {
-        Leitura ler = new Leitura();
-        ler.carrega("40_20.txt");    
-        BuscaCaminho bp = new BuscaCaminho();
-        bp.BuscaCaminho(ler);
-        System.out.println("Visualiza elemento = " +((Vertices) ler.Matriz[10][30]).getElement());
-        int[] pos = ((Vertices) ler.Matriz[10][30]).getPosition();
-        System.out.println("Posição = " +pos[0]+"|"+pos[1]);
+        
+        Scanner entrada = new Scanner(System.in);
+        while(true){
+            String input = "";
+            System.out.println("informe o nome do arquivo, sem .txt | enter para sair");
+            input = entrada.nextLine();
+            input = input+".txt";
+            if(input.equalsIgnoreCase("\n"))break; 
+
+            Leitura ler = new Leitura();     
+
+            ler.carrega(input); 
+
+            BuscaCaminho bp = new BuscaCaminho();            
+            System.out.println("==================================================================================");
+            System.out.println("==============================P-R-O-C-E-S-S-A-N-D-O===============================");
+            System.out.println("==================================================================================");
+            
+            bp.BuscaCaminho(ler);
+            ler.gravar();     
+        } 
     }
 }
