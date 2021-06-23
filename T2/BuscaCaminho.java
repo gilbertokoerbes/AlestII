@@ -6,28 +6,31 @@ public class BuscaCaminho {
     Leitura ler; //recebe instancia lida para poder verificar argumentos
     Queue<Vertices> fila = new LinkedList<>();
     
-    public void BuscaCaminho(Leitura entrada){
+    public boolean BuscaCaminho(Leitura entrada){
         this.ler = entrada;
-        System.out.println("Compatiblidade entre Carangueijo e Saida = " + posicao());
-        if(posicao()) realizaBusca();
+        System.out.println("Compatiblidade entre Caranguejo e Saida = " + validaPosicao());
+        if(validaPosicao()) {
+            realizaBusca();
+            return true;
+        }
         else{
             System.out.println("ENCERRANDO O PROGRAMA - SEM EXECUCAO NECESSARIA");
-            System.exit(0);
+            return false;
         }
         
     }
 
-    //verifica se a posição é compativel entre o carangueijo e a saida
+    //verifica se a posição é compativel entre o Caranguejo e a saida
     //(pares/pares ||  impares/impares)
-    private boolean posicao(){ 
-        if(((((ler.CarangueijoI))%2)==(((ler.SaidaI))%2)) && (((ler.CarangueijoJ%2))==((ler.SaidaJ%2)))) return true;
+    private boolean validaPosicao(){ 
+        if(((((ler.CaranguejoI))%2)==(((ler.SaidaI))%2)) && (((ler.CaranguejoJ%2))==((ler.SaidaJ%2)))) return true;
         else return false;
     }
 
     private void realizaBusca(){
         
-        int iniciali = ler.CarangueijoI;
-        int inicialj = ler.CarangueijoJ;
+        int iniciali = ler.CaranguejoI;
+        int inicialj = ler.CaranguejoJ;
         int finali = ler.SaidaI;
         int finalj = ler.SaidaJ;
         fila.add(ler.MatrizList.get(iniciali).get(inicialj));
@@ -62,20 +65,13 @@ public class BuscaCaminho {
         int[] pos = u.getPosition(); 
         int i = pos[0];
         int j = pos[1];      
-        BFS( (i-1), (j-1), pos);//left-up
-        
-        BFS( (i-1), (j+1), pos);//right-up
-       
-        BFS( (i+1), (j+1), pos);//right-down
-        
-        BFS( (i+1), (j-1), pos);//left-down
-        
-        BFS( (i-2), (j), pos);//up
-       
-        BFS( (i),   (j+2), pos);//right
-        
-        BFS( (i+2), (j), pos);//down
-        
+        BFS( (i-1), (j-1), pos);//left-up        
+        BFS( (i-1), (j+1), pos);//right-up       
+        BFS( (i+1), (j+1), pos);//right-down        
+        BFS( (i+1), (j-1), pos);//left-down        
+        BFS( (i-2), (j), pos);//up       
+        BFS( (i),   (j+2), pos);//right        
+        BFS( (i+2), (j), pos);//down        
         BFS( (i),   (j-2), pos);//left
 
     }

@@ -12,8 +12,8 @@ import javax.lang.model.element.Element;
 
 
 public class Leitura {
-    int CarangueijoI;
-    int CarangueijoJ;
+    int CaranguejoI;
+    int CaranguejoJ;
     int SaidaI;
     int SaidaJ;
     Object[][] Matriz;
@@ -22,8 +22,8 @@ public class Leitura {
     String nameFileIn = null;
     
     public void Leitura(){
-    CarangueijoI = -1;
-    CarangueijoJ = -1;
+    CaranguejoI = -1;
+    CaranguejoJ = -1;
     SaidaI = -1;
     SaidaJ = -1;
     nameFileIn = null;
@@ -37,33 +37,31 @@ public class Leitura {
         String currDir = Paths.get("").toAbsolutePath().toString();
         String nameComplete = currDir+"\\casos_de_teste\\"+ fName;
         Path path = Paths.get(nameComplete);
-
-        System.out.print("Lendo arquivo: dir=  "); 
-        System.out.println(path);
-
-        String[] tamanho = fName.split(".txt");
-        tamanho = tamanho[0].split("_");
-        int Largura = Integer.parseInt(tamanho[0]);
-        int Altura = Integer.parseInt(tamanho[1]);
-
-
         try (Scanner sc = new Scanner(Files.newBufferedReader(path, StandardCharsets.UTF_8))) {
+            System.out.print("Lendo arquivo: dir=  "); 
+            System.out.println(path);
+
+            String[] tamanho = fName.split(".txt");
+            tamanho = tamanho[0].split("_");
+            int Largura = Integer.parseInt(tamanho[0]);
+            int Altura = Integer.parseInt(tamanho[1]);
+
+            
             int i=0; 
             while (sc.hasNext()) {
                 String linha = sc.nextLine();
                 if (linha.length()!=Largura) throw new Exception("Largura informada do arquivo nao confere com caracteres linha");
                 MatrizList.add(new ArrayList<Vertices>());
-
                 for(int j=0; j<linha.length(); j++){
-            
+                
                     MatrizList.get(i).add(new Vertices());
                     MatrizList.get(i).get(j).add(linha.substring(j, j+1), i ,j);
-                                    
+
                     if(MatrizList.get(i).get(j).getElement().equalsIgnoreCase("C")){
                         System.out.println("pos. C A R A N G U E I J O = "+i+"|"+j);
-                        CarangueijoI=i;
-                        CarangueijoJ=j;                          
-                
+                        CaranguejoI=i;
+                        CaranguejoJ=j;                          
+                    
                     }
                     if(MatrizList.get(i).get(j).getElement().equalsIgnoreCase("S")){
                         System.out.println("pos. S A I D A = "+i+"|"+j);
@@ -83,7 +81,7 @@ public class Leitura {
     public void gravar() throws Exception{
         String nameFileOut = "Out_"+nameFileIn;
         String currDir = Paths.get("").toAbsolutePath().toString();
-        String nameComplete = currDir+"\\"+ nameFileOut;
+        String nameComplete = currDir+"\\casos_de_teste\\out\\"+ nameFileOut;
         Path path = Paths.get(nameComplete);
         try (PrintWriter writer = new PrintWriter(Files.newBufferedWriter(path, StandardCharsets.UTF_8))){
             int i=0;                
